@@ -136,11 +136,11 @@ export default function Contacto() {
                   email
                 </p>
                 <a
-                  href="mailto:brenda@email.com"
+                  href="mailto:brendaurquiza23@gmail.com"
                   className="text-sm font-medium hover:text-primary transition-colors"
                   style={{ color: 'var(--text)' }}
                 >
-                  brenda@email.com
+                  brendaurquiza23@gmail.com
                 </a>
               </div>
               <div>
@@ -148,13 +148,13 @@ export default function Contacto() {
                   linkedin
                 </p>
                 <a
-                  href="https://linkedin.com/in/brenda"
+                  href="https://www.linkedin.com/in/brenda-urquiza-331200251?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-medium hover:text-primary transition-colors"
                   style={{ color: 'var(--text)' }}
                 >
-                  linkedin.com/in/brenda
+                  linkedin.com/in/brenda-urquiza
                 </a>
               </div>
               <div>
@@ -162,13 +162,13 @@ export default function Contacto() {
                   github
                 </p>
                 <a
-                  href="https://github.com/brenda"
+                  href="https://github.com/Brendaur11"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-medium hover:text-primary transition-colors"
                   style={{ color: 'var(--text)' }}
                 >
-                  github.com/brenda
+                  github.com/Brendaur11
                 </a>
               </div>
             </div>
