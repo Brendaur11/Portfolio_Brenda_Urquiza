@@ -8,7 +8,7 @@ export const projects = [
     status: 'En desarrollo activo',
     featured: true,
     problem:
-      'Las PyMEs manejan su operación comercial en hojas de cálculo fragmentadas, sin trazabilidad de ventas, sin visibilidad en tiempo real del stock ni historial unificado de clientes.',
+      'Las PyMEs gestionan su operación comercial con herramientas no integradas: algunas utilizan hojas de cálculo fragmentadas y otras aún registran las ventas manualmente con lápiz y papel. En ambos casos, existe falta de trazabilidad, escasa visibilidad en tiempo real del stock y un historial de clientes no centralizado.',
     solution:
       'Sistema modular con separación clara de responsabilidades: gestión de entidades (clientes, productos), motor de ventas con cálculo de totales y descuentos, y panel de métricas operativas.',
     architecture:
@@ -38,7 +38,7 @@ export const projects = [
       'Creación de venta → Selección de cliente → Agregar ítems → Aplicar descuentos → Confirmar.',
       'Confirmación → Reducción de stock → Registro en historial → Generación de comprobante.',
     ],
-    github: 'https://github.com/brenda',
+    github: 'https://github.com/Brendaur11',
     demo: null,
   },
   {
@@ -76,7 +76,7 @@ export const projects = [
       'Request protegida → Verificación de JWT → Check de rol → Respuesta.',
       'Refresh → Validación de token → Rotación → Nuevo par de tokens.',
     ],
-    github: 'https://github.com/brenda',
+    github: 'https://github.com/Brendaur11',
     demo: null,
   },
   {
@@ -111,7 +111,7 @@ export const projects = [
       'Carga → Fetch paralelo de métricas → Render de widgets.',
       'Polling → Diff de datos → Actualización selectiva de componentes.',
     ],
-    github: 'https://github.com/brenda',
+    github: 'https://github.com/Brendaur11',
     demo: null,
   },
 ]

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import SectionContainer from '../components/SectionContainer'
 import CTAButton from '../components/CTAButton'
 import ProjectCard from '../components/ProjectCard'
@@ -91,49 +92,113 @@ export default function Home() {
 
       {/* Featured projects */}
       <SectionContainer>
-        <span className="section-label">{'// proyecto principal'}</span>
-        <h2
-          className="font-display text-3xl mt-2 mb-8"
-          style={{ color: 'var(--text)' }}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.3 }}
         >
-          Lo que construyo.
-        </h2>
+          <span className="section-label">{'// proyecto principal'}</span>
+
+          <h2
+            className="font-display text-3xl mt-2 mb-8"
+            style={{ color: 'var(--text)' }}
+          >
+            Lo que construyo.
+          </h2>
+        </motion.div>
+
         {loading ? (
-          <p className="font-mono text-sm" style={{ color: 'var(--text-muted)' }}>
+          <p
+            className="font-mono text-sm"
+            style={{ color: 'var(--text-muted)' }}
+          >
             Cargando...
           </p>
         ) : (
-          <div className="grid md:grid-cols-2 gap-4">
+          <motion.div
+            className="grid md:grid-cols-2 gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+          >
             {featured.map((p) => (
-              <ProjectCard key={p.id} project={p} />
+              <motion.div
+                key={p.id}
+                variants={{
+                  hidden: { opacity: 0, y: 40 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <ProjectCard project={p} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
-        <div className="mt-8">
+
+        <motion.div
+          className="mt-8"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
           <CTAButton to="/proyectos" variant="secondary">
             Ver todos los proyectos →
           </CTAButton>
-        </div>
+        </motion.div>
       </SectionContainer>
 
-      {/* CTA strip */}
+
+       {/* CTA strip */}
       <SectionContainer>
-        <div
-          className="rounded-2xl p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border"
-          style={{ background: 'var(--bg-subtle)', borderColor: 'var(--border)' }}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.4 }}
         >
-          <div>
-            <h3 className="font-display text-2xl" style={{ color: 'var(--text)' }}>
-              ¿Buscas una desarrolladora con criterio técnico?
-            </h3>
-            <p className="font-mono text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
-              Disponible para posiciones junior o pasantías remotas.
-            </p>
+          <div
+            className="rounded-2xl p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border"
+            style={{
+              background: 'var(--bg-subtle)',
+              borderColor: 'var(--border)',
+            }}
+          >
+            <div>
+              <h3
+                className="font-display text-2xl"
+                style={{ color: 'var(--text)' }}
+              >
+                ¿Buscas una desarrolladora con criterio técnico?
+              </h3>
+
+              <p
+                className="font-mono text-sm mt-1"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                Disponible para posiciones junior.
+              </p>
+            </div>
+
+            <CTAButton
+              to="/contacto"
+              variant="primary"
+              className="shrink-0"
+            >
+              Hablemos →
+            </CTAButton>
           </div>
-          <CTAButton to="/contacto" variant="primary" className="shrink-0">
-            Hablemos →
-          </CTAButton>
-        </div>
+        </motion.div>
       </SectionContainer>
     </>
   )

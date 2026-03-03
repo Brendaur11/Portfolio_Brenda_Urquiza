@@ -1,8 +1,30 @@
+import { motion } from 'framer-motion'
 import { useParams, Link } from 'react-router-dom'
 import SectionContainer from '../components/SectionContainer'
 import CTAButton from '../components/CTAButton'
 import CodeBlockPreview from '../components/CodeBlockPreview'
 import { useProjects } from '../hooks/useProjects'
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut',
+    },
+  },
+}
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+}
 
 export default function ProyectoDetalle() {
   const { slug } = useParams()
@@ -43,18 +65,26 @@ export default function ProyectoDetalle() {
   return (
     <SectionContainer>
       {/* Breadcrumb */}
-      <Link
-        to="/proyectos"
-        className="font-mono text-xs mb-8 inline-flex items-center gap-2 hover:text-primary transition-colors"
-        style={{ color: 'var(--text-muted)' }}
-      >
-        ← proyectos
-      </Link>
+      <motion.div variants={fadeUp} initial="hidden" animate="visible">
+        <Link
+          to="/proyectos"
+          className="font-mono text-xs mb-8 inline-flex items-center gap-2 hover:text-primary transition-colors"
+          style={{ color: 'var(--text-muted)' }}
+        >
+          ← proyectos
+        </Link>
+      </motion.div>
 
       {/* Header */}
-      <div className="max-w-3xl mb-10 mt-4">
+      <motion.div
+        className="max-w-3xl mb-10 mt-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="flex flex-wrap items-center gap-3 mb-3">
           <span className="section-label">{project.type}</span>
+
           <span
             className="font-mono text-xs px-2.5 py-1 rounded-full border"
             style={{
@@ -65,53 +95,72 @@ export default function ProyectoDetalle() {
           >
             {project.status}
           </span>
+
           {project.featured && (
             <span className="font-mono text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full bg-primary text-white">
               Destacado
             </span>
           )}
         </div>
+
         <h1 className="font-display text-4xl md:text-5xl mb-4" style={{ color: 'var(--text)' }}>
           {project.title}
         </h1>
+
         <p className="text-lg leading-relaxed" style={{ color: 'var(--text-muted)' }}>
           {project.tagline}
         </p>
-      </div>
+      </motion.div>
 
       {/* Stack */}
-      <div className="flex flex-wrap gap-2 mb-12">
+      <motion.div
+        className="flex flex-wrap gap-2 mb-12"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         {project.stack.map((s) => (
-          <span key={s} className="tag">{s}</span>
+          <motion.span key={s} variants={fadeUp} className="tag">
+            {s}
+          </motion.span>
         ))}
-      </div>
+      </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-8 mb-12">
-        {/* Problem */}
-        <div
-          className="rounded-xl p-6 border"
-          style={{ background: 'var(--bg-subtle)', borderColor: 'var(--border)' }}
-        >
-          <span className="section-label">{'// problema'}</span>
-          <p className="text-sm leading-relaxed mt-3" style={{ color: 'var(--text-muted)' }}>
-            {project.problem}
-          </p>
-        </div>
-
-        {/* Solution */}
-        <div
-          className="rounded-xl p-6 border"
-          style={{ background: 'var(--bg-subtle)', borderColor: 'var(--border)' }}
-        >
-          <span className="section-label">{'// solución'}</span>
-          <p className="text-sm leading-relaxed mt-3" style={{ color: 'var(--text-muted)' }}>
-            {project.solution}
-          </p>
-        </div>
-      </div>
+      {/* Problem & Solution */}
+      <motion.div
+        className="grid md:grid-cols-2 gap-8 mb-12"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        {[{ label: '// problema', text: project.problem },
+          { label: '// solución', text: project.solution }
+        ].map((block, i) => (
+          <motion.div
+            key={i}
+            variants={fadeUp}
+            whileHover={{ y: -4 }}
+            className="rounded-xl p-6 border"
+            style={{ background: 'var(--bg-subtle)', borderColor: 'var(--border)' }}
+          >
+            <span className="section-label">{block.label}</span>
+            <p className="text-sm leading-relaxed mt-3" style={{ color: 'var(--text-muted)' }}>
+              {block.text}
+            </p>
+          </motion.div>
+        ))}
+      </motion.div>
 
       {/* Architecture */}
-      <div className="mb-12">
+      <motion.div
+        className="mb-12"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <span className="section-label">{'// arquitectura'}</span>
         <h2 className="font-display text-2xl mt-2 mb-4" style={{ color: 'var(--text)' }}>
           Decisiones de diseño.
@@ -119,10 +168,15 @@ export default function ProyectoDetalle() {
         <p className="text-base leading-relaxed mb-6" style={{ color: 'var(--text-muted)' }}>
           {project.architecture}
         </p>
-        <div className="space-y-3">
+
+        <motion.div
+          className="space-y-3"
+          variants={staggerContainer}
+        >
           {project.decisions.map((d, i) => (
-            <div
+            <motion.div
               key={i}
+              variants={fadeUp}
               className="flex gap-3 items-start border-l-2 pl-4 py-1"
               style={{ borderColor: 'var(--primary)' }}
             >
@@ -132,45 +186,72 @@ export default function ProyectoDetalle() {
               <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                 {d}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Data model */}
-      <div className="mb-12">
+      <motion.div
+        className="mb-12"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <span className="section-label">{'// modelo_de_datos'}</span>
         <h2 className="font-display text-2xl mt-2 mb-4" style={{ color: 'var(--text)' }}>
           Entidades principales.
         </h2>
-        <CodeBlockPreview
-          title={`${project.slug}.schema`}
-          code={dataModelCode}
-        />
-      </div>
+
+        <motion.div variants={fadeUp}>
+          <CodeBlockPreview
+            title={`${project.slug}.schema`}
+            code={dataModelCode}
+          />
+        </motion.div>
+      </motion.div>
 
       {/* Flow */}
-      <div className="mb-12">
+      <motion.div
+        className="mb-12"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <span className="section-label">{'// flujo_principal'}</span>
         <h2 className="font-display text-2xl mt-2 mb-4" style={{ color: 'var(--text)' }}>
           Cómo funciona.
         </h2>
-        <CodeBlockPreview
-          title={`${project.slug}.flow`}
-          code={flowCode}
-        />
-      </div>
 
-      {/* Next steps */}
-      <div className="mb-12">
+        <motion.div variants={fadeUp}>
+          <CodeBlockPreview
+            title={`${project.slug}.flow`}
+            code={flowCode}
+          />
+        </motion.div>
+      </motion.div>
+
+      {/* Roadmap */}
+      <motion.div
+        className="mb-12"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <span className="section-label">{'// próximos_pasos'}</span>
         <h2 className="font-display text-2xl mt-2 mb-5" style={{ color: 'var(--text)' }}>
           Roadmap.
         </h2>
+
         <div className="grid sm:grid-cols-2 gap-3">
           {project.nextSteps.map((step, i) => (
-            <div
+            <motion.div
               key={i}
+              variants={fadeUp}
+              whileHover={{ y: -3 }}
               className="card flex items-start gap-3 p-4"
             >
               <span className="font-mono text-xs text-primary mt-0.5 shrink-0">
@@ -179,27 +260,34 @@ export default function ProyectoDetalle() {
               <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
                 {step}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Links */}
-      <div className="flex gap-3 flex-wrap pt-4 border-t" style={{ borderColor: 'var(--border)' }}>
-        {project.github && (
-          <CTAButton href={project.github} variant="secondary">
-            GitHub →
-          </CTAButton>
-        )}
+      <motion.div
+        className="flex gap-3 flex-wrap pt-4 border-t"
+        style={{ borderColor: 'var(--border)' }}
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         {project.demo && (
           <CTAButton href={project.demo} variant="primary">
             Ver demo →
           </CTAButton>
         )}
+        {project.github && (
+          <CTAButton href={project.github} variant="secondary">
+            GitHub →
+          </CTAButton>
+        )}
         <CTAButton to="/proyectos" variant="outline">
           ← Volver
         </CTAButton>
-      </div>
+      </motion.div>
     </SectionContainer>
   )
 }

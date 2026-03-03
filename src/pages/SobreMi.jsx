@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import SectionContainer from '../components/SectionContainer'
 import CTAButton from '../components/CTAButton'
 
@@ -24,47 +25,108 @@ const principles = [
   },
 ]
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut',
+    },
+  },
+}
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+}
+
 export default function SobreMi() {
   return (
     <SectionContainer>
       {/* Header */}
-      <div className="max-w-2xl mb-14">
+      <motion.div
+        className="max-w-2xl mb-14"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+      >
         <span className="section-label">{'// sobre_mi'}</span>
-        <h1 className="font-display text-5xl mt-3 mb-5" style={{ color: 'var(--text)' }}>
+        <h1
+          className="font-display text-5xl mt-3 mb-5"
+          style={{ color: 'var(--text)' }}
+        >
           Cómo pienso.<br />Cómo construyo.
         </h1>
-        <p className="text-lg leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+        <p
+          className="text-lg leading-relaxed"
+          style={{ color: 'var(--text-muted)' }}
+        >
           Soy desarrolladora Full Stack Jr. con interés genuino en arquitectura de software,
           diseño de sistemas y lógica de negocio. Me importa más entender un problema a fondo
           que llegar rápido a una solución incompleta.
         </p>
-      </div>
+      </motion.div>
 
       {/* Principles */}
-      <div className="grid md:grid-cols-2 gap-4 mb-14">
+      <motion.div
+        className="grid md:grid-cols-2 gap-4 mb-14"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         {principles.map(({ icon, title, desc }) => (
-          <div key={title} className="card p-6">
+          <motion.div
+            key={title}
+            variants={fadeUp}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.25 }}
+            className="card p-6"
+          >
             <span className="text-2xl">{icon}</span>
-            <h3 className="font-mono text-sm font-medium mt-3 mb-2" style={{ color: 'var(--text)' }}>
+            <h3
+              className="font-mono text-sm font-medium mt-3 mb-2"
+              style={{ color: 'var(--text)' }}
+            >
               {title}
             </h3>
-            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+            <p
+              className="text-sm leading-relaxed"
+              style={{ color: 'var(--text-muted)' }}
+            >
               {desc}
             </p>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Tech focus */}
-      <div
+      <motion.div
         className="rounded-xl p-8 border mb-14"
         style={{ background: 'var(--bg-subtle)', borderColor: 'var(--border)' }}
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
       >
         <span className="section-label">{'// enfoque_técnico'}</span>
-        <h2 className="font-display text-2xl mt-2 mb-4" style={{ color: 'var(--text)' }}>
+        <h2
+          className="font-display text-2xl mt-2 mb-4"
+          style={{ color: 'var(--text)' }}
+        >
           Dónde pongo la energía.
         </h2>
-        <div className="grid md:grid-cols-3 gap-6">
+
+        <motion.div
+          className="grid md:grid-cols-3 gap-6"
+          variants={staggerContainer}
+        >
           {[
             {
               area: 'Backend',
@@ -82,36 +144,58 @@ export default function SobreMi() {
                 'Diseño de flujos, modelado de entidades, decisiones de arquitectura documentadas y justificadas.',
             },
           ].map(({ area, detail }) => (
-            <div key={area}>
-              <p className="font-mono text-xs uppercase tracking-widest mb-2" style={{ color: 'var(--primary)' }}>
+            <motion.div key={area} variants={fadeUp}>
+              <p
+                className="font-mono text-xs uppercase tracking-widest mb-2"
+                style={{ color: 'var(--primary)' }}
+              >
                 {area}
               </p>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: 'var(--text-muted)' }}
+              >
                 {detail}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Personal */}
-      <div className="max-w-2xl mb-10">
+      <motion.div
+        className="max-w-2xl mb-10"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         <span className="section-label">{'// más_allá_del_código'}</span>
-        <p className="text-base leading-relaxed mt-3" style={{ color: 'var(--text-muted)' }}>
+        <p
+          className="text-base leading-relaxed mt-3"
+          style={{ color: 'var(--text-muted)' }}
+        >
           Me interesan los sistemas como metáfora. La forma en que piezas simples forman
           estructuras complejas me parece igual de fascinante en software que en otros dominios.
           Eso guía cómo aprendo, cómo diseño y cómo trabajo en equipo.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="flex gap-3 flex-wrap">
+      {/* Buttons */}
+      <motion.div
+        className="flex gap-3 flex-wrap"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <CTAButton to="/proyectos" variant="primary">
           Ver mis proyectos →
         </CTAButton>
         <CTAButton to="/stack" variant="secondary">
           Mi stack técnico
         </CTAButton>
-      </div>
+      </motion.div>
     </SectionContainer>
   )
 }
