@@ -120,7 +120,7 @@ export default function SobreMi() {
           className="font-display text-2xl mt-2 mb-4"
           style={{ color: 'var(--text)' }}
         >
-          Dónde pongo la energía..
+          Dónde pongo la energía.
         </h2>
 
         <motion.div
